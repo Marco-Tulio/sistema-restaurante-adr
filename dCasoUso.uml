@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Cliente
+actor Garcom
+actor Cozinheiro
+actor Caixa
+actor Palito
+
+rectangle "Sistema de Restaurante" {
+  
+  usecase "Fazer Pedido" as UC1
+  usecase "Consultar Cardápio" as UC2
+  usecase "Atender Pedido" as UC3
+  usecase "Preparar Pedido" as UC4
+  usecase "Registrar Pagamento" as UC5
+  usecase "Emitir Comanda" as UC6
+  usecase "Gerenciar Mesa" as UC7
+  usecase "Gerenciar Palito" as UC8
+}
+
+Cliente --> UC2
+Cliente --> UC1
+Garcom --> UC1
+Garcom --> UC3
+Garcom --> UC6
+Garcom --> UC7
+Cozinheiro --> UC4
+Caixa --> UC5
+Palito --> UC1
+
+UC1 --> UC2 : <<include>>
+UC3 --> UC2 : <<extend>>
+
+@enduml

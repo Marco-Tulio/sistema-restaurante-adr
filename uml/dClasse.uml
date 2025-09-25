@@ -1,0 +1,67 @@
+@startuml
+' Estilo opcional para deixar o diagrama mais bonito
+skinparam classAttributeIconSize 0
+
+' Classes principais
+class Cliente {
+  -nome: String
+  -telefone: String
+  +fazerPedido(): Pedido
+}
+
+class Pedido {
+  -dataHora: DateTime
+  -status: String
+  +adicionarItem(item: ItemPedido)
+  +calcularTotal(): double
+}
+
+class ItemPedido {
+  -quantidade: int
+  +getSubtotal(): double
+}
+
+class Produto {
+  -nome: String
+  -preco: double
+}
+
+class Funcionario {
+  -nome: String
+  -id: int
+}
+
+class Garcom {
+  +atenderMesa(): void
+}
+
+class Cozinheiro {
+  +prepararPedido(): void
+}
+
+class Mesa {
+  -numero: int
+  -ocupada: boolean
+  +reservar(): void
+}
+
+class Pagamento {
+  -valor: double
+  -tipo: String
+  +realizarPagamento(): boolean
+}
+
+' Relacionamentos
+Cliente "1" --> "0..*" Pedido
+Pedido "1" --> "1..*" ItemPedido
+ItemPedido "1" --> "1" Produto
+Pedido "1" --> "1" Mesa
+Pedido "1" --> "0..1" Pagamento
+
+Funcionario <|-- Garcom
+Funcionario <|-- Cozinheiro
+
+Pedido "1" --> "1" Garcom : atendidoPor
+Pedido "1" --> "0..1" Cozinheiro : preparadoPor
+
+@enduml
